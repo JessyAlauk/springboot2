@@ -1,23 +1,26 @@
 package academy.devdojo.springboot2.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Anime {
     private Long id;
-    private String name;
+    @JsonProperty("name")
+    private String nameCaracter;
 
-    public Anime(Long id, String name) {
-        this.name = name;
+    public Anime(Long id, String nameCaracter) {
+        this.nameCaracter = nameCaracter;
         this.id = id;
     }
 
     public Anime() {
     }
 
-    public String getName() {
-        return name;
+    public String getNameCaracter() {
+        return nameCaracter;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameCaracter(String nameCaracter) {
+        this.nameCaracter = nameCaracter;
     }
 
     public Long getId() {
