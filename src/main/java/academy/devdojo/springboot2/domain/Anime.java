@@ -1,33 +1,40 @@
 package academy.devdojo.springboot2.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
+@Entity
 public class Anime {
-    private Long id;
-    @JsonProperty("name")
-    private String nameCaracter;
 
-    public Anime(Long id, String nameCaracter) {
-        this.nameCaracter = nameCaracter;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
+    private String nameCharacter;
+
+    public Anime(Long id, String nameCharacter) {
+        this.nameCharacter = nameCharacter;
         this.id = id;
     }
 
     public Anime() {
     }
 
-    public String getNameCaracter() {
-        return nameCaracter;
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Anime{");
+        sb.append("id=").append(id);
+        sb.append(", nameCharacter='").append(nameCharacter).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
-    public void setNameCaracter(String nameCaracter) {
-        this.nameCaracter = nameCaracter;
+    public String getNameCharacter() {
+        return nameCharacter;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

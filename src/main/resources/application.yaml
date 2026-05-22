@@ -1,8 +1,17 @@
 spring:
   application:
     name: springboot2
+  dataSource:
+    url: jdbc:postgresql://localhost:5432/animes
+    username: goku
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
 
   web:
     error:
       include-stacktrace: on_param
+
+
 
