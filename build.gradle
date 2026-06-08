@@ -20,6 +20,7 @@ repositories {
 ext {
 	springJpaVersion = '4.0.6';
 	postgresqlVersion = '42.7.11';
+	springBootValidationVersion = '4.1.0-M4';
 }
 
 dependencies {
@@ -28,6 +29,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springJpaVersion}"
 	implementation "org.postgresql:postgresql:$postgresqlVersion"
+	implementation "org.springframework.boot:spring-boot-starter-validation:$springBootValidationVersion"
 }
 
 tasks.named('test') {

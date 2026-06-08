@@ -5,6 +5,7 @@ import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
 import academy.devdojo.springboot2.service.AnimeService;
 import academy.devdojo.springboot2.util.DateUtil;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime){
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody anime){
         LOG.info(dateUtil.formatLocalDateTimeTodatabaseStyle(LocalDateTime.now()));
         var response = animeService.save(anime);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
