@@ -1,4 +1,8 @@
 package academy.devdojo.springboot2.requests;
 
-public record AnimePutRequestBody(Long id, String name) {
+import jakarta.validation.constraints.NotEmpty;
+
+public record AnimePutRequestBody(Long id,
+                                  @NotEmpty(message = "The anime name cannot be empty")
+                                  String name) {
 }

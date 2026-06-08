@@ -54,7 +54,7 @@ public class AnimeController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id){
+    public ResponseEntity<Void> delete(@PathVariable @Valid long id){
         LOG.info(dateUtil.formatLocalDateTimeTodatabaseStyle(LocalDateTime.now()));
         animeService.delete(id);
         return ResponseEntity.noContent().build();
