@@ -10,10 +10,10 @@ public class Anime {
     private Long id;
 
     @Column(name = "name")
-    private String nameCharacter;
+    private String name;
 
-    public Anime(Long id, String nameCharacter) {
-        this.nameCharacter = nameCharacter;
+    public Anime(Long id, String name) {
+        this.name = name;
         this.id = id;
     }
 
@@ -25,13 +25,13 @@ public class Anime {
     public String toString() {
         final StringBuffer sb = new StringBuffer("Anime{");
         sb.append("id=").append(id);
-        sb.append(", nameCharacter='").append(nameCharacter).append('\'');
+        sb.append(", name='").append(name).append('\'');
         sb.append('}');
         return sb.toString();
     }
 
-    public String getNameCharacter() {
-        return nameCharacter;
+    public String getName() {
+        return name;
     }
 
     public Long getId() {

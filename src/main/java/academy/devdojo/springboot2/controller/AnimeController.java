@@ -39,6 +39,12 @@ public class AnimeController {
         return ResponseEntity.ok().body(animeService.findById(id));
     }
 
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Anime>> findByName(@RequestParam String name){
+        LOG.info(dateUtil.formatLocalDateTimeTodatabaseStyle(LocalDateTime.now()));
+        return ResponseEntity.ok().body(animeService.findByName(name));
+    }
+
     @PostMapping
     public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime){
         LOG.info(dateUtil.formatLocalDateTimeTodatabaseStyle(LocalDateTime.now()));
