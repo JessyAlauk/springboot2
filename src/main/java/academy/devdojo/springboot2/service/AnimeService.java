@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2.service;
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.mapper.AnimeMapper;
 import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
@@ -29,7 +30,7 @@ public class AnimeService {
     }
 
     public Anime save(AnimePostRequestBody anime) {
-        var newAnime = new Anime(null, anime.name());
+        var newAnime = AnimeMapper.toSave(anime);
         return animeRepository.save(newAnime);
     }
 
