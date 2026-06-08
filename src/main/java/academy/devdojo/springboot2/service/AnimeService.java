@@ -7,6 +7,7 @@ import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class AnimeService {
                 .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
+    @Transactional
     public Anime save(AnimePostRequestBody anime) {
         var newAnime = AnimeMapper.toSave(anime);
         return animeRepository.save(newAnime);
@@ -41,9 +43,9 @@ public class AnimeService {
         animeRepository.delete(findById(id));
     }
 
+    @Transactional
     public Anime replace(AnimePutRequestBody anime) {
-        var savedAnime = findById(anime.id());
-        var updatedAnime = new Anime(savedAnime.getId(), anime.name());
+        var updatedAnime = AnimeMapper.toSave(anime);
         return animeRepository.save(updatedAnime);
     }
 }

@@ -13,7 +13,7 @@ public final class AnimeMapper {
         return new Anime(null, body.name());
     }
 
-    public static Anime toAnime(AnimePutRequestBody body) {
+    public static Anime toSave(AnimePutRequestBody body) {
         return new Anime(
                 body.id(),
                 body.name()
