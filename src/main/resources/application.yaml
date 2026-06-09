@@ -14,5 +14,12 @@ spring:
     error:
       include-stacktrace: on_param
 
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: TRACE
+
+
 
 
