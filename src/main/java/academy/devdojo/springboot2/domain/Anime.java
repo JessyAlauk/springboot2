@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Anime {
@@ -10,6 +11,7 @@ public class Anime {
     private Long id;
 
     @Column(name = "name")
+    @NotEmpty(message = "The anime name cannot be empty")
     private String name;
 
     public Anime(Long id, String name) {
