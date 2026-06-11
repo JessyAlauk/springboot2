@@ -71,45 +71,41 @@ class AnimeControllerTest {
     @Test
     @DisplayName("List returns list of anime inside page object when successful")
     void list_ReturnsListOfAnimesInsidePageObject_WhenSuccessful(){
-        var expectedName = animeServiceMock.listAll(null).getContent().getFirst().getName();
-        var animePage = animeController.list(null).getContent();
+        var newAnimePage = animeController.list(null).getContent();
 
-        assertNotNull(animePage);
-        Assertions.assertThat(animePage).isNotEmpty().hasSize(1);
-        assertEquals(animePage.get(0).getName(), expectedName);
+        assertNotNull(newAnimePage);
+        Assertions.assertThat(newAnimePage).isNotEmpty().hasSize(1);
+        assertEquals(newAnimePage.getFirst().getName(), animeList.getFirst().getName());
 
     }
 
     @Test
     @DisplayName("ListAll returns list of anime  when successful")
     void listAll_ReturnsListOfAnimes_WhenSuccessful(){
-        var expectedName = animeServiceMock.listAllNonPageable();
         var animes = animeController.listAll().getBody();
 
         Assertions.assertThat(animes).isNotNull().isNotEmpty().hasSize(3);
-        assertEquals(expectedName, animes);
+        assertEquals(animeList, animes);
     }
 
     @Test
     @DisplayName("FindById return anime when successful")
     void findById_ReturnAnime_WhenSuccessful(){
-        var expectedName = animeServiceMock.findById(1L).getId();
         var anime = animeController.findById(1L).getBody();
 
         assertNotNull(anime);
-        assertEquals(expectedName, anime.getId());
+        assertEquals(anAnime.getId(), anime.getId());
 
     }
 
     @Test
     @DisplayName("FindByname return anime when successful")
     void findByName_ReturnAnime_WhenSuccessful(){
-        var expectedName = animeServiceMock.findByName(null).getFirst().getName();
-        var animePage = animeController.findByName("anime").getBody();
+        var anime = animeController.findByName("anime").getBody();
 
-        assertNotNull(animePage);
-        Assertions.assertThat(animePage).isNotEmpty().hasSize(1);
-        assertEquals(animePage.getFirst().getName(), expectedName);
+        assertNotNull(anime);
+        Assertions.assertThat(anime).isNotEmpty().hasSize(1);
+        assertEquals(anime.getFirst().getName(), anAnimeList.getFirst().getName());
 
     }
 
@@ -117,10 +113,10 @@ class AnimeControllerTest {
     @DisplayName("FindByname return an empty list of anime is not found")
     void findByName_ReturnEmptyListOfAnime_WhenAnimeIsNotFound(){
         when(animeServiceMock.findByName(any())).thenReturn(Collections.emptyList());
-        var animePage = animeController.findByName("anime").getBody();
+        var anime = animeController.findByName("anime").getBody();
 
-        assertNotNull(animePage);
-        Assertions.assertThat(animePage).isEmpty();
+        assertNotNull(anime);
+        Assertions.assertThat(anime).isEmpty();
 
     }
 

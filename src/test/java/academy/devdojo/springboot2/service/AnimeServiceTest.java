@@ -81,11 +81,10 @@ class AnimeServiceTest {
     @Test
     @DisplayName("ListAllNonPageable returns list of anime when successful")
     void listAllNonPageable_ReturnsListOfAnimes_WhenSuccessful(){
-        var expectedName = animeList;
         var animes = animeService.listAllNonPageable();
 
         Assertions.assertThat(animes).isNotNull().isNotEmpty().hasSize(3);
-        assertEquals(expectedName, animes);
+        assertEquals(animeList, animes);
     }
 
     @Test
