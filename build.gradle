@@ -21,6 +21,7 @@ ext {
 	springJpaVersion = '4.0.6';
 	postgresqlVersion = '42.7.11';
 	h2Version = '2.4.240';
+	dataFakerVersion = '2.4.0';
 }
 
 dependencies {
@@ -32,6 +33,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation:'
 
 	implementation "org.postgresql:postgresql:$postgresqlVersion"
+	implementation "net.datafaker:datafaker:$dataFakerVersion"
 
 	testImplementation "com.h2database:h2:$h2Version"
 }

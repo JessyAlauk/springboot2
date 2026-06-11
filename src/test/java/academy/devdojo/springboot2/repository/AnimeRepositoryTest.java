@@ -2,6 +2,7 @@ package academy.devdojo.springboot2.repository;
 
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.util.AnimeCreator;
 import jakarta.validation.ConstraintViolationException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -10,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 @DisplayName("Tests for Anime Repository")
@@ -23,21 +27,25 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Save persists anime when Sucessful")
     void save_PersistAnime_WhenSuccessful(){
-        var anime = createAnime("Dororo");
+        var anime = AnimeCreator.createAnimeToBeSaved();
         var savedAnime = this.animeRepository.save(anime);
 
-        Assertions.assertThat(savedAnime).isNotNull();
-        Assertions.assertThat(savedAnime.getId()).isNotNull();
-        Assertions.assertThat(savedAnime.getName()).isEqualTo(anime.getName());
+        assertNotNull(savedAnime);
+        assertNotNull(savedAnime.getId());
+        assertEquals(savedAnime.getName(), anime.getName());
+
+//        Assertions.assertThat(savedAnime).isNotNull();
+//        Assertions.assertThat(savedAnime.getId()).isNotNull();
+//        Assertions.assertThat(savedAnime.getName()).isEqualTo(anime.getName());
     }
 
     @Test
     @DisplayName("Save updates anime when Sucessful")
     void save_UpdatesAnime_WhenSuccessful(){
-        var oldAnime = createAnime("Dororo");
+        var oldAnime = AnimeCreator.createAnimeToBeSaved();
         var savedAnime = this.animeRepository.save(oldAnime);
 
-        var newAnimeName = createAnime(savedAnime.getId(), "Attack on Titan");
+        var newAnimeName = AnimeCreator.createValidAnime(savedAnime.getId(), "Attack on Titan");
         var updatedAnime = this.animeRepository.save(newAnimeName);
 
         Assertions.assertThat(updatedAnime).isNotNull();
@@ -49,7 +57,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Delete removes anime when Sucessful")
     void delete_RemovesAnime_WhenSuccessful(){
-        var anime = createAnime("Dragon Ball Z");
+        var anime = AnimeCreator.createAnimeToBeSaved();
         var savedAnime = this.animeRepository.save(anime);
 
         this.animeRepository.delete(savedAnime);
@@ -65,7 +73,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Find By Name returns list of anime when Sucessful")
     void findByName_ReturnsListOfAnime_WhenSuccessful(){
-        var anime = createAnime("Saint Seiya");
+        var anime = AnimeCreator.createAnimeToBeSaved();
         var savedAnime = this.animeRepository.save(anime);
 
         var name = savedAnime.getName();
@@ -78,8 +86,8 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Find By Name returns empty list when no anime is found")
     void findByName_ReturnsEmptyList_WhenAnimeIsNotFound(){
-        var anime = createAnime("Saint Seiya");
-        var savedAnime = this.animeRepository.save(anime);
+        var anime = AnimeCreator.createAnimeToBeSaved();
+        this.animeRepository.save(anime);
 
         var animes = this.animeRepository.findByName("Fullmetal Alchemist");
 
@@ -90,20 +98,14 @@ class AnimeRepositoryTest {
     @DisplayName("Save throw ConstraintValidationException when name is empty")
     void save_ThrowConstraintValidationException_WhenNameIsEmpty(){
         var anime = new Anime();
-        Assertions.assertThatThrownBy(() -> this.animeRepository.save(anime))
-                .isInstanceOf(ConstraintViolationException.class);
+
+        assertThrows(ConstraintViolationException.class, () -> this.animeRepository.save(anime));
+//        Assertions.assertThatThrownBy(() -> this.animeRepository.save(anime))
+//                .isInstanceOf(ConstraintViolationException.class);
 
 //        Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
 //                .isThrownBy(() -> this.animeRepository.save(anime))
 //                .withMessage("The anime name cannot be empty");
     }
 
-
-    private Anime createAnime(String name){
-        return new Anime(null, name);
-    }
-
-    private Anime createAnime(Long id, String name){
-        return new Anime(id, name);
-    }
 }

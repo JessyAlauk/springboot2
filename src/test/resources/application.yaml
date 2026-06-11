@@ -1,0 +1,11 @@
+  spring:
+    application:
+      name: springboot2
+    dataSource:
+      url: jdbc:h2:mem:animes
+      username: goku
+      password: 123
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
