@@ -12,6 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -48,6 +51,14 @@ public class AnimeController {
         return ResponseEntity.ok().body(animeService.findById(id));
     }
 
+    @GetMapping(path = "by-id/{id}")
+    public ResponseEntity<Anime> findByIdAuthenticationPrincipal(@PathVariable long id,
+                                                                 @AuthenticationPrincipal UserDetails userDetails){
+        LOG.info(dateUtil.formatLocalDateTimeTodatabaseStyle(LocalDateTime.now()));
+        LOG.info(userDetails.toString());
+        return ResponseEntity.ok().body(animeService.findById(id));
+    }
+
     @GetMapping(path = "/find")
     public ResponseEntity<List<Anime>> findByName(@RequestParam String name){
         LOG.info(dateUtil.formatLocalDateTimeTodatabaseStyle(LocalDateTime.now()));
@@ -55,6 +66,7 @@ public class AnimeController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody anime){
         LOG.info(dateUtil.formatLocalDateTimeTodatabaseStyle(LocalDateTime.now()));
         var response = animeService.save(anime);
