@@ -4,6 +4,8 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
+
+
 group = 'academy.devdojo'
 version = '0.0.1-SNAPSHOT'
 
@@ -22,6 +24,7 @@ ext {
 	postgresqlVersion = '42.7.11';
 	h2Version = '2.4.240';
 	dataFakerVersion = '2.4.0';
+	restAssuredVersion = '6.0.0';
 }
 
 dependencies {
@@ -36,6 +39,7 @@ dependencies {
 	implementation "net.datafaker:datafaker:$dataFakerVersion"
 
 	testImplementation "com.h2database:h2:$h2Version"
+	testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
 }
 
 tasks.named('test') {

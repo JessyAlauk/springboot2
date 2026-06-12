@@ -3,6 +3,8 @@ package academy.devdojo.springboot2.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Objects;
+
 @Entity
 public class Anime {
 
@@ -22,6 +24,18 @@ public class Anime {
     public Anime() {
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Anime anime = (Anime) o;
+        return Objects.equals(id, anime.id) && Objects.equals(name, anime.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 
     @Override
     public String toString() {

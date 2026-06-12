@@ -25,6 +25,10 @@ public class AnimeCreator {
         return new Anime(1L, naruto());
     }
 
+    public static Anime createUpdatedAnime(Long id){
+        return new Anime(id, naruto());
+    }
+
     private static String naruto(){
         return FAKER.naruto().character();
     }

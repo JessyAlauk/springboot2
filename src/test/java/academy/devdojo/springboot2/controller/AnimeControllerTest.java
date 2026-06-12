@@ -75,12 +75,12 @@ class AnimeControllerTest {
 
         assertNotNull(newAnimePage);
         Assertions.assertThat(newAnimePage).isNotEmpty().hasSize(1);
-        assertEquals(newAnimePage.getFirst().getName(), animeList.getFirst().getName());
+        assertEquals(newAnimePage.getFirst().getName(), animePage.get().toList().getFirst().getName());
 
     }
 
     @Test
-    @DisplayName("ListAll returns list of anime  when successful")
+    @DisplayName("ListAll returns list of anime when successful")
     void listAll_ReturnsListOfAnimes_WhenSuccessful(){
         var animes = animeController.listAll().getBody();
 
